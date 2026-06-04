@@ -1,0 +1,15 @@
+{
+    "with_common_utils": {
+        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+        "features": {
+            "ghcr.io/devcontainers/features/common-utils:2": {
+                "installZsh": true,
+                "installOhMyZsh": true,
+                "upgradePackages": false,
+                "username": "octocat"
+            },
+            "uninstall-oh-my-zsh": {}
+        },
+        "remoteUser": "octocat"
+    }
+}
