@@ -11,11 +11,14 @@ uninstall_if_present() {
         if command -v getent >/dev/null 2>&1; then
             home_dir="$(getent passwd "$user_name" | cut -d: -f6)"
         else
-            home_dir="$(awk -F: -v user="$user_name" '$1==user {print $6; exit}' /etc/passwd 2>/dev/null)"
+            home_dir="$(awk -F: -v user="$user_name" '$1==user {print $6; exit}' /etc/passwd)"
         fi
     fi
 
     if [ -z "$home_dir" ]; then
+        if [ -n "$user_name" ]; then
+            echo "Unable to resolve home directory for '$user_name'; skipping uninstall"
+        fi
         return
     fi
 
@@ -33,7 +36,7 @@ uninstall_if_present() {
     fi
 
     if id -u "$user_name" >/dev/null 2>&1; then
-        su "$user_name" -c "env HOME='$home_dir' ZSH='$zsh_dir' sh -ceu 'yes | head -n1 | sh -eu \$ZSH/tools/uninstall.sh'"
+        env HOME="$home_dir" ZSH="$zsh_dir" su -m "$user_name" -s /bin/sh -c 'set -eu; yes | head -n1 | sh -eu "$ZSH/tools/uninstall.sh"'
     fi
 }
 
