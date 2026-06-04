@@ -7,6 +7,14 @@ uninstall_if_present() {
     user_name="$1"
     home_dir="$2"
 
+    if [ -z "$home_dir" ] && [ -n "$user_name" ]; then
+        if command -v getent >/dev/null 2>&1; then
+            home_dir="$(getent passwd "$user_name" | cut -d: -f6)"
+        else
+            home_dir="$(awk -F: -v user="$user_name" '$1==user {print $6; exit}' /etc/passwd 2>/dev/null)"
+        fi
+    fi
+
     if [ -z "$home_dir" ]; then
         return
     fi
