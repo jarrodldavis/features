@@ -4,6 +4,8 @@ set -e
 
 source dev-container-features-test-lib
 
-check "oh-my-zsh directory removed for node" bash -c "[ ! -d /home/node/.oh-my-zsh ]"
+check "node user exists" id node
+check "node home directory exists" bash -c "home_dir=\$(getent passwd node | cut -d: -f6) && [ -n \"\$home_dir\" ] && [ -d \"\$home_dir\" ]"
+check "oh-my-zsh directory removed for node" bash -c "home_dir=\$(getent passwd node | cut -d: -f6) && [ ! -d \"\$home_dir/.oh-my-zsh\" ]"
 
 reportResults
