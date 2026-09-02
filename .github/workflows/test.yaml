@@ -15,6 +15,7 @@ jobs:
         features:
           - color
           - hello
+          - persistent-dev-state
           - uninstall-oh-my-zsh
         baseImage:
           - debian:latest
@@ -37,6 +38,7 @@ jobs:
         features:
           - color
           - hello
+          - persistent-dev-state
           - uninstall-oh-my-zsh
     steps:
       - uses: actions/checkout@v4

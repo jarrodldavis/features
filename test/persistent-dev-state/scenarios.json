@@ -1,0 +1,25 @@
+{
+    "with_common_utils": {
+        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+        "features": {
+            "ghcr.io/devcontainers/features/common-utils:2": {
+                "installZsh": false,
+                "installOhMyZsh": false,
+                "upgradePackages": false,
+                "username": "octocat"
+            },
+            "persistent-dev-state": {
+                "additionalHomeDirs": ".npm,.local/share/pnpm/store"
+            }
+        },
+        "remoteUser": "octocat"
+    },
+    "without_vscode_extensions": {
+        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+        "features": {
+            "persistent-dev-state": {
+                "persistVsCodeExtensions": false
+            }
+        }
+    }
+}

@@ -6,7 +6,7 @@
 
 ## Example Contents
 
-This repository contains a _collection_ of two Features - `hello` and `color`. These Features serve as simple feature implementations.  Each sub-section below shows a sample `devcontainer.json` alongside example usage of the Feature.
+This repository contains a _collection_ of Features, including `hello`, `color`, `uninstall-oh-my-zsh`, and `persistent-dev-state`. These Features serve as simple feature implementations.  Each sub-section below shows a sample `devcontainer.json` alongside example usage of the Feature.
 
 ### `hello`
 
@@ -48,6 +48,22 @@ Running `color` inside the built container will print your favorite color to sta
 $ color
 
 my favorite color is green
+```
+
+### `persistent-dev-state`
+
+Adds a persistent, user-scoped state volume for tool data across rebuilds.
+
+```jsonc
+{
+    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "features": {
+        "ghcr.io/jarrodldavis/features/persistent-dev-state:1": {
+            "persistVsCodeExtensions": true,
+            "additionalHomeDirs": ".npm,.cache/pip,.local/share/pnpm/store"
+        }
+    }
+}
 ```
 
 ## Repo and Feature Structure

@@ -1,0 +1,32 @@
+{
+    "name": "Persistent Dev State",
+    "id": "persistent-dev-state",
+    "version": "1.0.0",
+    "description": "Persist user-scoped tool state in a named volume that survives rebuilds",
+    "options": {
+        "persistVsCodeExtensions": {
+            "type": "boolean",
+            "default": true,
+            "description": "Persist the remote user's ~/.vscode-server/extensions directory in the state volume."
+        },
+        "additionalHomeDirs": {
+            "type": "string",
+            "default": "",
+            "description": "Comma-separated list of additional remote-user home-relative directories to persist (for example: .npm,.cache/pip,.local/share/pnpm/store)."
+        }
+    },
+    "containerEnv": {
+        "PERSISTENT_DEV_STATE_ROOT": "/var/lib/devcontainer-state",
+        "CODEX_HOME": "/var/lib/devcontainer-state/codex"
+    },
+    "mounts": [
+        {
+            "type": "volume",
+            "source": "devcontainer-state-${devcontainerId}",
+            "target": "/var/lib/devcontainer-state"
+        }
+    ],
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/common-utils"
+    ]
+}
