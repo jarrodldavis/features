@@ -1,23 +1,17 @@
 {
     "name": "Persistent Dev State",
     "id": "persistent-dev-state",
-    "version": "1.0.0",
-    "description": "Persist user-scoped tool state in a named volume that survives rebuilds",
+    "version": "1.0.7",
+    "description": "Persist configured filesystem paths in a named volume that survives rebuilds",
     "options": {
-        "persistVsCodeExtensions": {
-            "type": "boolean",
-            "default": true,
-            "description": "Persist the remote user's ~/.vscode-server/extensions directory in the state volume."
-        },
-        "additionalHomeDirs": {
+        "paths": {
             "type": "string",
-            "default": "",
-            "description": "Comma-separated list of additional remote-user home-relative directories to persist (for example: .npm,.cache/pip,.local/share/pnpm/store)."
+            "default": "[]",
+            "description": "JSON array of paths to persist. Each entry must be an absolute path or begin with ~ (for remote-user home expansion)."
         }
     },
     "containerEnv": {
-        "PERSISTENT_DEV_STATE_ROOT": "/var/lib/devcontainer-state",
-        "CODEX_HOME": "/var/lib/devcontainer-state/codex"
+        "PERSISTENT_DEV_STATE_ROOT": "/var/lib/devcontainer-state"
     },
     "mounts": [
         {

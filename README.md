@@ -59,8 +59,7 @@ Adds a persistent, user-scoped state volume for tool data across rebuilds.
     "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
     "features": {
         "ghcr.io/jarrodldavis/features/persistent-dev-state:1": {
-            "persistVsCodeExtensions": true,
-            "additionalHomeDirs": ".npm,.cache/pip,.local/share/pnpm/store"
+            "paths": "[\"~/.codex\",\"~/.npm\",\"/usr/local/share/my-tool\"]"
         }
     }
 }
