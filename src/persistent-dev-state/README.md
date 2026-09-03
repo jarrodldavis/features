@@ -7,7 +7,7 @@ Persist configured filesystem paths in a named volume that survives rebuilds
 ```json
 "features": {
     "ghcr.io/jarrodldavis/features/persistent-dev-state:1": {
-        "paths": "[\"~/.codex\",\"~/.npm\",\"/usr/local/share/my-tool\"]"
+        "paths": "~/.codex;~/.npm;/usr/local/share/my-tool"
     }
 }
 ```
@@ -16,7 +16,7 @@ Persist configured filesystem paths in a named volume that survives rebuilds
 
 | Options Id | Description | Type | Default Value |
 |-----|-----|-----|-----|
-| paths | JSON array of paths to persist. Each entry must be an absolute path or begin with ~ (for remote-user home expansion). | string | [] |
+| paths | Semicolon-separated list of paths to persist. Each entry must be an absolute path or begin with ~ (for home expansion). | string |  |
 
 
 

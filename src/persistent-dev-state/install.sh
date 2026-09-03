@@ -137,33 +137,19 @@ persist_path() {
 }
 
 parse_and_persist_paths() {
-    raw_paths="${PATHS:-[]}"
+    raw_paths="${PATHS:-}"
     trimmed_paths="$(trim "$raw_paths")"
 
-    if [ -z "$trimmed_paths" ] || [ "$trimmed_paths" = "[]" ]; then
+    if [ -z "$trimmed_paths" ]; then
         return 0
     fi
 
-    case "$trimmed_paths" in
-        \[*\])
-            ;;
-        *)
-            echo "Skipping paths option because it is not a JSON array string: '$trimmed_paths'"
-            return 0
-            ;;
-    esac
-
-    inner="${trimmed_paths#\[}"
-    inner="${inner%\]}"
-    inner_no_quotes="$(printf '%s' "$inner" | tr -d '\"')"
-
-    if [ -z "$(printf '%s' "$inner_no_quotes" | tr -d '[:space:]')" ]; then
-        return 0
-    fi
+    normalized_entries="$(printf '%s' "$trimmed_paths" | awk '{gsub(/\\n/, "\n"); gsub(/;/, "\n"); print}')"
 
     OLD_IFS="$IFS"
-    IFS=','
-    for token in $inner_no_quotes; do
+    IFS='
+'
+    for token in $normalized_entries; do
         persist_path "$(trim "$token")"
     done
     IFS="$OLD_IFS"

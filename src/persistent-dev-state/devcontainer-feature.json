@@ -1,13 +1,13 @@
 {
     "name": "Persistent Dev State",
     "id": "persistent-dev-state",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "description": "Persist configured filesystem paths in a named volume that survives rebuilds",
     "options": {
         "paths": {
             "type": "string",
-            "default": "[]",
-            "description": "JSON array of paths to persist. Each entry must be an absolute path or begin with ~ (for remote-user home expansion)."
+            "default": "",
+            "description": "Semicolon-separated list of paths to persist. Each entry must be an absolute path or begin with ~ (for home expansion)."
         }
     },
     "containerEnv": {

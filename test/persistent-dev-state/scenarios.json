@@ -3,7 +3,7 @@
         "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
         "features": {
             "persistent-dev-state": {
-                "paths": "[\"~/.codex\",\"~/.npm\",\"/usr/local/share/tool-cache\"]"
+                "paths": "~/.codex;~/.npm;/usr/local/share/tool-cache"
             }
         }
     },
@@ -11,7 +11,7 @@
         "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
         "features": {
             "persistent-dev-state": {
-                "paths": "[]"
+                "paths": ""
             }
         }
     }
