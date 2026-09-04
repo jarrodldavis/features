@@ -17,5 +17,5 @@
             "type": "volume"
         }
     ],
-    "onCreateCommand": "uid=$(id -u); gid=$(id -g); if [ \"$uid\" -eq 0 ]; then chown -R \"$uid:$gid\" /var/lib/devcontainer-persistent-home; elif command -v sudo >/dev/null 2>&1; then sudo -n chown -R \"$uid:$gid\" /var/lib/devcontainer-persistent-home; else echo 'persistent-home: passwordless sudo is required for a non-root remote user' >&2; exit 1; fi"
+    "onCreateCommand": "/usr/local/bin/devcontainer-persistent-home-on-create"
 }
