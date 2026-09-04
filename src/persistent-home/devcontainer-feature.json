@@ -1,0 +1,21 @@
+{
+    "name": "Persistent Home Directories",
+    "id": "persistent-home",
+    "version": "1.0.0",
+    "description": "Persists selected directories in the remote user's home across dev container rebuilds",
+    "options": {
+        "paths": {
+            "type": "string",
+            "default": "",
+            "description": "Colon-separated directory paths relative to the remote user's home."
+        }
+    },
+    "mounts": [
+        {
+            "source": "devcontainer-persistent-home-${devcontainerId}",
+            "target": "/var/lib/devcontainer-persistent-home",
+            "type": "volume"
+        }
+    ],
+    "onCreateCommand": "/usr/local/bin/devcontainer-persistent-home-on-create"
+}

@@ -1,0 +1,13 @@
+{
+    "persists_paths": {
+        "build": {
+            "dockerfile": "Dockerfile"
+        },
+        "features": {
+            "persistent-home": {
+                "paths": ".codex:.local/share/example"
+            }
+        },
+        "remoteUser": "vscode"
+    }
+}
