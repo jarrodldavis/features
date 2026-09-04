@@ -15,7 +15,7 @@ check "nested path points into the volume" bash -c \
 check "existing state is migrated" bash -c "[ \"\$(cat '$home/.codex/existing')\" = existing ]"
 check "volume ownership matches remote user" bash -c \
     "[ \"\$(stat -c %u '$state_root')\" = \"\$(id -u vscode)\" ]"
-check "remote user can write persistent state" sudo -u vscode sh -c \
+check "remote user can write persistent state" sh -c \
     "printf persisted > '$home/.codex/new' && [ \"\$(cat '$state_root/.codex/new')\" = persisted ]"
 
 reportResults
