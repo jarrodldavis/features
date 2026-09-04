@@ -10,7 +10,7 @@ The `paths` option is a colon-separated list of directories relative to the remo
 
 Each configured directory is moved into a named volume and replaced with a symlink. The volume name includes `${devcontainerId}`, so it is unique to the dev container and stable across rebuilds.
 
-Existing directory contents are migrated when the Feature is first installed. On subsequent rebuilds, the existing volume contents take precedence over any corresponding directories from the rebuilt image. Removing a path from the option does not delete its existing data from the volume.
+Existing directory contents are migrated when the Feature is first installed. The Feature relies on standard named-volume initialization behavior: when a new empty named volume is mounted over a non-empty path, Docker and Podman initialize the volume from the image contents at that mount point. On subsequent rebuilds, the existing populated volume is mounted as-is, so its contents take precedence over any corresponding directories from the rebuilt image. Removing a path from the option does not delete its existing data from the volume.
 
 Paths must be canonical relative directory paths. Absolute paths, `~`, `.` or `..` components, trailing slashes, overlapping paths, and symlinked parent directories are rejected. File paths are not supported.
 
