@@ -2,6 +2,7 @@
 set -eu
 
 state_root=/var/lib/devcontainer-persistent-home
+on_create=/usr/local/bin/devcontainer-persistent-home-on-create
 
 fail() {
     echo "persistent-home: $*" >&2
@@ -30,7 +31,10 @@ ensure_parent() {
 
     for component in $parent; do
         current=$current/$component
-        if [ -e "$current" ]; then
+
+        if [ -L "$current" ]; then
+            fail "parent path is a symlink: $current"
+        elif [ -e "$current" ]; then
             [ -d "$current" ] || fail "parent path is not a directory: $current"
         else
             mkdir "$current"
@@ -117,6 +121,10 @@ for path in $paths; do
 
     ln -s "$target" "$source"
 done
+
+mkdir -p "${on_create%/*}"
+cp "$(dirname "$0")/on-create.sh" "$on_create"
+chmod 0755 "$on_create"
 
 set +f
 IFS=$old_ifs
