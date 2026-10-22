@@ -7,8 +7,7 @@
     {
       "source": "/etc/localtime",
       "target": "/usr/local/share/host-localtime",
-      "type": "bind",
-      "readonly": true
+      "type": "bind"
     }
   ]
 }
