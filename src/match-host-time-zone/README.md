@@ -1,7 +1,7 @@
 
 # Match Host Time Zone (match-host-time-zone)
 
-Match the host timezone without bind-mounting over a tzdata-managed file.
+Match host timezone using /etc/localtime without bind-mounting on tzdata-managed paths.
 
 ## Example Usage
 
