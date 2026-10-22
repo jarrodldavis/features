@@ -1,8 +1,7 @@
 #!/bin/bash
 set -e
 
-# Feature installation should replace a zoneinfo symlink with a file,
-# so the runtime bind mount won't follow it into /usr/share/zoneinfo.
-test -f /etc/localtime
-test ! -L /etc/localtime
-echo "Timezone mount target is a regular file"
+test -f /usr/local/share/host-localtime
+test ! -L /usr/local/share/host-localtime
+test "$TZ" = ":/usr/local/share/host-localtime"
+echo "Host timezone mount target and TZ configured"
