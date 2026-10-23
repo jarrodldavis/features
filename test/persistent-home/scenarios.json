@@ -9,5 +9,18 @@
             }
         },
         "remoteUser": "vscode"
+    },
+    "preset_paths": {
+        "build": {
+            "dockerfile": "Dockerfile"
+        },
+        "features": {
+            "persistent-home": {
+                "codex": true,
+                "githubCopilot": true,
+                "paths": ".local/share/example"
+            }
+        },
+        "remoteUser": "vscode"
     }
 }

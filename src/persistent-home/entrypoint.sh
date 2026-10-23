@@ -1,34 +1,25 @@
 #!/bin/sh
 set -eu
-
 state_root=/var/lib/devcontainer-persistent-home
 config=/etc/devcontainer-persistent-home.conf
-
 if [ -f "$config" ] && [ -d "$state_root" ]; then
     owner=$(sed -n '1p' "$config")
-    paths=$(sed -n '2p' "$config")
-
-    old_ifs=$IFS
-    IFS=:
-    set -f
-
-    for path in $paths; do
+    # File entries may not have existed when the image was built.
+    sed '1d' "$config" | while IFS='|' read -r type path; do
         [ -n "$path" ] || continue
         target=$state_root/$path
-
-        # A mounted, previously existing volume may not contain paths
-        # introduced by a newer image. Create them before VS Code connects.
-        [ -L "$target" ] && { echo "persistent-home: symlink target: $target" >&2; exit 1; }
+        if [ -L "$target" ]; then
+            echo "persistent-home: symlink target: $target" >&2
+            exit 1
+        fi
         if [ -e "$target" ]; then
-            [ -d "$target" ] || { echo "persistent-home: target is not a directory: $target" >&2; exit 1; }
+            if [ "$type" = d ]; then test -d "$target"
+            else test -f "$target"; fi || exit 1
         else
-            mkdir -p "$target"
-            chown -R "$owner" "$target"
+            mkdir -p "${target%/*}"
+            if [ "$type" = d ]; then mkdir "$target"; else : > "$target"; fi
+            chown "$owner" "$target"
         fi
     done
-
-    IFS=$old_ifs
-    set +f
 fi
-
 exec "$@"

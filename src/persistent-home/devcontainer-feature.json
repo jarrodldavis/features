@@ -1,13 +1,23 @@
 {
     "name": "Persistent Home Directories",
     "id": "persistent-home",
-    "version": "1.0.1",
-    "description": "Persists selected directories in the remote user's home across dev container rebuilds",
+    "version": "1.1.0",
+    "description": "Persists selected files and directories in the remote user's home across dev container rebuilds",
     "options": {
         "paths": {
             "type": "string",
             "default": "",
-            "description": "Colon-separated directory paths relative to the remote user's home."
+            "description": "Colon-separated file or directory paths relative to the remote user's home."
+        },
+        "codex": {
+            "type": "boolean",
+            "default": false,
+            "description": "Persist Codex configuration and sessions (~/.codex)."
+        },
+        "githubCopilot": {
+            "type": "boolean",
+            "default": false,
+            "description": "Persist GitHub Copilot agent sessions and session databases without persisting all VS Code server state."
         }
     },
     "mounts": [
