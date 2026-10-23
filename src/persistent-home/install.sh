@@ -3,6 +3,8 @@ set -eu
 
 state_root=/var/lib/devcontainer-persistent-home
 on_create=/usr/local/bin/devcontainer-persistent-home-on-create
+entrypoint=/usr/local/bin/devcontainer-persistent-home-entrypoint
+config=/etc/devcontainer-persistent-home.conf
 
 fail() {
     echo "persistent-home: $*" >&2
@@ -122,7 +124,12 @@ for path in $paths; do
     ln -s "$target" "$source"
 done
 
+printf '%s\n%s\n' "$uid:$gid" "$paths" > "$config"
+chmod 0644 "$config"
+
 mkdir -p "${on_create%/*}"
+cp "$(dirname "$0")/entrypoint.sh" "$entrypoint"
+chmod 0755 "$entrypoint"
 cp "$(dirname "$0")/on-create.sh" "$on_create"
 chmod 0755 "$on_create"
 
