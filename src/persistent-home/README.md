@@ -1,7 +1,7 @@
 
 # Persistent Home Directories (persistent-home)
 
-Persists selected directories in the remote user's home across dev container rebuilds
+Persists selected files and directories in the remote user's home across dev container rebuilds
 
 ## Example Usage
 
@@ -15,25 +15,50 @@ Persists selected directories in the remote user's home across dev container reb
 
 | Options Id | Description | Type | Default Value |
 |-----|-----|-----|-----|
-| paths | Colon-separated directory paths relative to the remote user's home. | string | - |
+| paths | Colon-separated file or directory paths relative to the remote user's home. | string | - |
+| codex | Persist Codex configuration and sessions (~/.codex). | boolean | false |
+| githubCopilot | Persist GitHub Copilot agent sessions and session databases without persisting all VS Code server state. | boolean | false |
 
-The `paths` option is a colon-separated list of directories relative to the remote user's home directory. For example:
+The `paths` option remains a colon-separated list of arbitrary paths relative
+to the remote user's home directory. Existing files and directories are
+supported; missing custom paths default to directories.
+
+Enable the named presets without persisting all VS Code server state:
 
 ```json
 "features": {
-    "ghcr.io/jarrodldavis/features/persistent-home:1": {
-        "paths": ".codex:.local/share/example"
-    }
+  "ghcr.io/jarrodldavis/features/persistent-home:1": {
+    "codex": true,
+    "githubCopilot": true,
+    "paths": ".local/share/example"
+  }
 }
 ```
 
-Each configured directory is moved into a named volume and replaced with a symlink. The volume name includes `${devcontainerId}`, so it is unique to the dev container and stable across rebuilds.
+- `codex` persists `~/.codex`.
+- `githubCopilot` persists Agent Host sessions and metadata, and the
+  `github.copilot-chat` global storage directory. It does not preserve all of
+  `~/.vscode-server/data` and therefore allows normal VS Code server
+  initialization and extension installation.
 
-Existing directory contents are migrated when the Feature is first installed. The Feature relies on standard named-volume initialization behavior: when a new empty named volume is mounted over a non-empty path, Docker and Podman initialize the volume from the image contents at that mount point. On subsequent rebuilds, the existing populated volume is mounted as-is, so its contents take precedence over any corresponding directories from the rebuilt image. Removing a path from the option does not delete its existing data from the volume.
+Each selected path is moved into a named volume and replaced with a symlink.
+The volume name includes `${devcontainerId}` and stays stable across rebuilds.
+An existing populated volume wins over newly built image contents; removing a
+configured path does not delete its data.
 
-Paths must be canonical relative directory paths. Absolute paths, `~`, `.` or `..` components, trailing slashes, overlapping paths, and symlinked parent directories are rejected. File paths are not supported.
+Paths must be canonical relative paths. Absolute paths, `~`, `.`, `..`,
+trailing slashes, overlapping paths and symlinked parents are rejected.
+Avoid persisting a broader path like `.vscode-server/data` alongside the
+Copilot preset.
 
-For a non-root `remoteUser`, passwordless `sudo` is required when the Feature needs to correct ownership of the volume after the container is created and any remote-user UID/GID update has been applied. The recursive ownership update is skipped when the volume already belongs to the remote user.
+**Migration:** Existing deployments that previously persisted
+`.vscode-server/data` must migrate the necessary saved session files into the
+new volume targets and remove the old parent symlink before rebuilding. The
+Feature intentionally rejects symlinked parent directories instead of
+silently risking data loss.
+
+For non-root `remoteUser`, passwordless sudo is required when the Feature
+needs to correct named-volume ownership after UID/GID updates.
 
 
 ---
