@@ -1,7 +1,7 @@
 {
     "name": "Persistent Home Directories",
     "id": "persistent-home",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Persists selected directories in the remote user's home across dev container rebuilds",
     "options": {
         "paths": {
@@ -17,5 +17,6 @@
             "type": "volume"
         }
     ],
-    "onCreateCommand": "/usr/local/bin/devcontainer-persistent-home-on-create"
+    "onCreateCommand": "/usr/local/bin/devcontainer-persistent-home-on-create",
+    "entrypoint": "/usr/local/bin/devcontainer-persistent-home-entrypoint"
 }
