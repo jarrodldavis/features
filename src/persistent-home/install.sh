@@ -64,7 +64,9 @@ case "${GITHUBCOPILOT:-false}" in
         add_path f .vscode-server/data/User/globalStorage/agent-host.db
         add_path f .vscode-server/data/User/globalStorage/agent-host-config.json
         add_path f .vscode-server/data/User/globalStorage/agent-host-storage.json
-        add_path f .vscode-server/data/User/globalStorage/github.copilot-chat/session-store.db
+        add_path f .vscode-server/data/User/globalStorage/agent-host.db-wal
+        add_path f .vscode-server/data/User/globalStorage/agent-host.db-shm
+        add_path d .vscode-server/data/User/globalStorage/github.copilot-chat
         ;;
 esac
 
