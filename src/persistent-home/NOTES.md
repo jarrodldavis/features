@@ -16,7 +16,7 @@ Enable the named presets without persisting all VS Code server state:
 
 - `codex` persists `~/.codex`.
 - `githubCopilot` persists Agent Host sessions and metadata, and the
-  `github.copilot-chat` global storage directory. It does not preserve all of
+  `github.copilot-chat` global storage directory, plus `~/.copilot` for Copilot\n  CLI/SDK state (including `session-state`). It does not preserve all of
   `~/.vscode-server/data` and therefore allows normal VS Code server
   initialization and extension installation.
 
