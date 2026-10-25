@@ -60,6 +60,7 @@ IFS=$old_ifs
 case "${CODEX:-false}" in true) add_path d .codex ;; esac
 case "${GITHUBCOPILOT:-false}" in
     true)
+        add_path d .copilot
         add_path d .vscode-server/data/agentSessionData
         add_path f .vscode-server/data/User/globalStorage/agent-host.db
         add_path f .vscode-server/data/User/globalStorage/agent-host-config.json
