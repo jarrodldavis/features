@@ -1,7 +1,7 @@
 {
     "name": "Uninstall Oh My Zsh",
     "id": "uninstall-oh-my-zsh",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Uninstalls Oh My Zsh when it was previously installed in the container",
     "installsAfter": [
         "ghcr.io/devcontainers/features/common-utils"
