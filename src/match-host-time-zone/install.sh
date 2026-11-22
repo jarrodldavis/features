@@ -28,5 +28,4 @@ fi
 
 # The runtime bind mount is applied only when the container starts.
 # Keep the link valid in the image already.
-ln -sfn /usr/local/share/host-localtime /etc/localtime.dpkg-host-new
-mv -f /etc/localtime.dpkg-host-new /etc/localtime
+/usr/local/sbin/restore-host-localtime

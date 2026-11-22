@@ -31,12 +31,12 @@ uninstall_if_present() {
     echo "Uninstalling Oh My Zsh from '$home_dir'"
 
     if [ "$user_name" = "root" ] || [ -z "$user_name" ]; then
-        command env HOME="$home_dir" ZSH="$zsh_dir" sh -ceu 'yes | head -n1 | sh -eu $ZSH/tools/uninstall.sh'
+        printf '%s\n' y | env HOME="$home_dir" ZSH="$zsh_dir" sh -eu "$zsh_dir/tools/uninstall.sh"
         return
     fi
 
     if id -u "$user_name" >/dev/null 2>&1; then
-        env HOME="$home_dir" ZSH="$zsh_dir" su -m "$user_name" -s /bin/sh -c 'set -eu; yes | head -n1 | sh -eu "$ZSH/tools/uninstall.sh"'
+        printf '%s\n' y | env HOME="$home_dir" ZSH="$zsh_dir" su -m "$user_name" -s /bin/sh -c 'exec sh -eu "$ZSH/tools/uninstall.sh"'
     fi
 }
 
