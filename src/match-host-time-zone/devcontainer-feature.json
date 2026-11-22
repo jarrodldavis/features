@@ -1,7 +1,7 @@
 {
   "name": "Match Host Time Zone",
   "id": "match-host-time-zone",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Match host timezone using /etc/localtime without bind-mounting on tzdata-managed paths.",
   "mounts": [
     {

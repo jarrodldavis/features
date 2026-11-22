@@ -1,13 +1,30 @@
 {
-    "color_and_hello": {
+    "all_features_ubuntu": {
         "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
         "features": {
-            "color": {
-                "favorite": "purple"
+            "ghcr.io/devcontainers/features/common-utils:2": {
+                "installZsh": true,
+                "installOhMyZsh": true,
+                "upgradePackages": false,
+                "username": "octocat"
             },
-            "hello": {
-                "greeting": "Greetings"
-            }
-        }
+            "match-host-time-zone": {},
+            "uninstall-oh-my-zsh": {}
+        },
+        "remoteUser": "octocat"
+    },
+    "all_features_debian": {
+        "image": "mcr.microsoft.com/devcontainers/base:debian",
+        "features": {
+            "ghcr.io/devcontainers/features/common-utils:2": {
+                "installZsh": true,
+                "installOhMyZsh": true,
+                "upgradePackages": false,
+                "username": "octocat"
+            },
+            "match-host-time-zone": {},
+            "uninstall-oh-my-zsh": {}
+        },
+        "remoteUser": "octocat"
     }
 }
