@@ -13,6 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         features:
+          - ipv4-localhost
           - match-host-time-zone
           - uninstall-oh-my-zsh
         baseImage:
@@ -34,6 +35,7 @@ jobs:
       fail-fast: false
       matrix:
         features:
+          - ipv4-localhost
           - uninstall-oh-my-zsh
     steps:
       - uses: actions/checkout@v4

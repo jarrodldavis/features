@@ -1,0 +1,6 @@
+{
+  "id": "ipv4-localhost",
+  "version": "1.0.0",
+  "name": "IPv4 Localhost",
+  "description": "Prefer IPv4 loopback addresses using glibc address-selection precedence."
+}

@@ -8,6 +8,7 @@
                 "upgradePackages": false,
                 "username": "octocat"
             },
+            "ipv4-localhost": {},
             "match-host-time-zone": {},
             "uninstall-oh-my-zsh": {}
         },
@@ -22,6 +23,7 @@
                 "upgradePackages": false,
                 "username": "octocat"
             },
+            "ipv4-localhost": {},
             "match-host-time-zone": {},
             "uninstall-oh-my-zsh": {}
         },
