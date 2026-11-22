@@ -1,0 +1,16 @@
+{
+    "custom-precedence": {
+        "image": "debian:trixie",
+        "features": {
+            "ipv4-localhost": {}
+        },
+        "remoteUser": "root"
+    },
+    "typescript_node": {
+        "image": "mcr.microsoft.com/devcontainers/typescript-node:22-bookworm",
+        "features": {
+            "ipv4-localhost": {}
+        },
+        "remoteUser": "node"
+    }
+}
